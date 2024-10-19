@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+int main() {
+    pid_t pid;
+    pid = fork();
+    if (pid < 0) {
+        perror("Fork failed");
+        return 1;
+    } else if (pid == 0) {
+        nice(-10); // Increase priority (lower nice value)
+        printf("Child Process ID: %d, Nice Value Adjusted\n", getpid());
+        for (int i = 0; i < 5; i++) {
+            printf("Child process working... %d\n", i);
+            sleep(2); // Simulate work
+        }
+    } else {
+        printf("Parent Process ID: %d\n", getpid());
+        wait(NULL); // Wait for child process to finish
+        printf("Child process finished\n");
+    }
+    return 0;
+}
+(10 marks)\
+
+#include <stdio.h>
+#define MAX_FRAMES 3 // Number of memory frames
+void fifo_page_replacement(int pages[], int n) {
+    int memory[MAX_FRAMES] = { -1 }; // Initialize memory frames to -1 (empty)
+    int page_faults = 0; // Count of page faults
+    int front = 0; // Pointer to track the front of the FIFO queue
+    printf("Page Reference\tMemory State\n");
+    for (int i = 0; i < n; i++) {
+        int page = pages[i];
+        int found = 0;
+        for (int j = 0; j < MAX_FRAMES; j++) {
+            if (memory[j] == page) {
+                found = 1; // Page found
+                break;
+            }
+        }
+       if (!found) {
+            memory[front] = page; // Add the new page to memory
+            front = (front + 1) % MAX_FRAMES; // Move front to the next frame
+            page_faults++; // Increment page fault count
+           printf("%d\t\t", page);
+            for (int k = 0; k < MAX_FRAMES; k++) {
+                if (memory[k] != -1) {
+                    printf("%d ", memory[k]);
+                }
+            }
+            printf("\n");
+        } else {
+            printf("%d\t\t", page);
+            for (int k = 0; k < MAX_FRAMES; k++) {
+                if (memory[k] != -1) {
+                    printf("%d ", memory[k]);
+                }
+            }
+            printf("\n");
+        }
+    }
+    printf("Total Page Faults: %d\n", page_faults);
+}
+int main() {
+    int pages[] = {3, 4, 5, 6, 3, 4, 7, 3, 4, 5, 6, 7, 2, 4, 6};
+    int n = sizeof(pages) / sizeof(pages[0]); 
+    fifo_page_replacement(pages, n); // Call the FIFO page replacement
+    return 0;
+}
+(20 marks)\
