@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <unistd.h>
+int main() {
+    if (fork() == 0) {  // Child process
+        nice(5);  // Increase priority (lower priority value)
+        printf("Child process: PID = %d, priority increased.\n", getpid());
+    } else {  // Parent process
+        printf("Parent process: PID = %d\n", getpid());
+    }
+    return 0;
+}
+(10 marks)\
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAX_PROCESSES 10
+
+typedef struct {
+    int pid;         // Process ID
+    int arrival;     // Arrival time
+    int burst;       // Burst time
+    int turnaround;  // Turnaround time
+    int waiting;     // Waiting time
+} Process;
+
+void calculateTimes(Process proc[], int n) {
+    int time = 0; // Current time
+    int completed = 0; // Count of completed processes
+    int gantt[MAX_PROCESSES]; // Gantt chart
+    int ganttIndex = 0;
+
+    while (completed < n) {
+        int idx = -1; // Index of the shortest job
+        int minBurst = 999; // Initialize to a large number
+
+        // Find the process with the shortest burst time
+        for (int i = 0; i < n; i++) {
+            if (proc[i].arrival <= time && proc[i].burst < minBurst) {
+                minBurst = proc[i].burst;
+                idx = i;
+            }
+        }
+
+        if (idx != -1) {
+            gantt[ganttIndex++] = proc[idx].pid; // Add process to Gantt chart
+            time += proc[idx].burst + 2; // Increment time with burst time and I/O waiting time
+            proc[idx].turnaround = time - proc[idx].arrival; // Calculate turnaround time
+            proc[idx].waiting = proc[idx].turnaround - proc[idx].burst; // Calculate waiting time
+            proc[idx].burst = rand() % 10 + 1; // Generate new CPU burst
+            completed++; // Increment completed processes
+        } else {
+            time++; // If no process is ready, increment time
+        }
+    }
+
+    // Print Gantt chart
+    printf("Gantt Chart:\n");
+    for (int i = 0; i < ganttIndex; i++) {
+        printf("P%d ", gantt[i]);
+    }
+    printf("\n");
+}
+
+void printTimes(Process proc[], int n) {
+    printf("\nProcess\tTurnaround Time\tWaiting Time\n");
+    float totalTurnaround = 0, totalWaiting = 0;
+
+    for (int i = 0; i < n; i++) {
+        totalTurnaround += proc[i].turnaround;
+        totalWaiting += proc[i].waiting;
+        printf("P%d\t%d\t\t%d\n", proc[i].pid, proc[i].turnaround, proc[i].waiting);
+    }
+
+    printf("\nAverage Turnaround Time: %.2f\n", totalTurnaround / n);
+    printf("Average Waiting Time: %.2f\n", totalWaiting / n);
+}
+
+int main() {
+    srand(time(NULL)); // Seed random number generator
+
+    Process proc[MAX_PROCESSES];
+    int n;
+
+    // Input number of processes
+    printf("Enter number of processes (max %d): ", MAX_PROCESSES);
+    scanf("%d", &n);
+
+    // Input arrival times and first CPU bursts
+    for (int i = 0; i < n; i++) {
+        proc[i].pid = i;
+        printf("Enter arrival time and first CPU burst for P%d: ", i);
+        scanf("%d %d", &proc[i].arrival, &proc[i].burst);
+    }
+
+    // Calculate turnaround and waiting times
+    calculateTimes(proc, n);
+    printTimes(proc, n);
+
+    return 0;
+}
+(20 marks)\

@@ -1,0 +1,71 @@
+import java.util.Scanner;
+class ZeroException extends Exception {
+    public ZeroException(String message) {
+        super(message);
+    }
+}
+public class FactorialCalculator {
+    public static long factorial(int n) {
+        long result = 1;
+        for (int i = 1; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+   public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int number = scanner.nextInt();
+        try {
+            if (number == 0) {
+                throw new ZeroException("Number is 0");
+            }
+            long fact = factorial(number);
+            System.out.println("Factorial of " + number + " is: " + fact);
+        } catch (ZeroException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
+(10 marks)\
+import java.io.*;
+class Point {
+    protected int x;
+    protected int y;
+    public Point() {
+        this.x = 0;
+        this.y = 0;
+    }
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    public void display() {
+        System.out.println("Point coordinates: (" + x + ", " + y + ")");
+    }
+}
+class ColorPoint extends Point {
+    private String color;
+    public ColorPoint() {
+        super(); // Call the default constructor of Point
+        this.color = "No Color";
+    }
+    public ColorPoint(int x, int y, String color) {
+        super(x, y); // Call the parameterized constructor of Point
+        this.color = color;
+    }
+    public void display() {
+        System.out.println("ColorPoint coordinates: (" + x + ", " + y + "), Color: " + color);
+    }
+}
+public class PointDemo {
+    public static void main(String[] args) {
+        Point point1 = new Point();
+        point1.display(); // Display details of the point
+       ColorPoint colorPoint1 = new ColorPoint(5, 10, "Purple");
+        colorPoint1.display(); // Display details of the ColorPoint
+    }
+}
+(20 marks)\

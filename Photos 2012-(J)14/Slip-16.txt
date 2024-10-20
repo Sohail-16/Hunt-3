@@ -1,0 +1,59 @@
+class MyNumber {
+    private int number;
+    public MyNumber(int number) {
+        this.number = number;
+    }
+    public boolean isEven() {
+        return number % 2 == 0;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        if (args.length > 0) {
+            try {
+                int inputNumber = Integer.parseInt(args[0]);
+               MyNumber myNum = new MyNumber(inputNumber);
+               if (myNum.isEven()) {
+                    System.out.println(inputNumber + " is even.");
+                } else {
+                    System.out.println(inputNumber + " is odd.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please provide a valid integer as argument.");
+            }
+        } else {
+            System.out.println("Please provide a number as a command line argument.");
+        }
+    }
+}
+(10 marks)\
+class Employee {
+    String name;
+    double salary;
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+    public void displayEmployeeDetails() {
+        System.out.println("Employee Name: " + name);
+        System.out.println("Salary: $" + salary);
+    }
+}
+class Programmer extends Employee {
+    String progLanguage;
+    public Programmer(String name, double salary, String progLanguage) {
+        super(name, salary);  // Call the superclass constructor
+        this.progLanguage = progLanguage;
+    }
+    public void displayProgrammerDetails() {
+        displayEmployeeDetails();  
+        System.out.println("Programming Language: " + progLanguage);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Programmer programmer = new Programmer("Sohail Khan", 95000, "Java");
+       programmer.displayProgrammerDetails();
+    }
+}
+(20 marks)\
