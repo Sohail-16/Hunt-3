@@ -1,0 +1,102 @@
+import java.util.Scanner;
+public class GreetUser {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+       System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+       String upperCaseName = name.toUpperCase();
+       System.out.println("Hello, " + upperCaseName + ", nice to meet you!");
+       scanner.close();
+}    }
+(10 marks)\
+import java.util.Scanner;
+
+class Product {
+    private int id;
+    private String name;
+    private double price;
+
+    // Constructor
+    public Product(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+}
+
+public class ProductDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Product[] products = new Product[5]; // Array to store 5 Product objects
+
+        // Input product details
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Enter product ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            System.out.print("Enter product name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter product price: ");
+            double price = scanner.nextDouble();
+
+            // Create a new Product object and store it in the array
+            products[i] = new Product(id, name, price);
+        }
+
+        // Find the product with the minimum price
+        Product minPriceProduct = products[0]; // Assume the first product has the minimum price
+        for (int i = 1; i < products.length; i++) {
+            if (products[i].getPrice() < minPriceProduct.getPrice()) {
+                minPriceProduct = products[i]; // Update minPriceProduct
+            }
+        }
+
+        // Display the name of the product with the minimum price
+        System.out.println("Product with the minimum price: " + minPriceProduct.getName());
+
+        // Close the scanner
+        scanner.close();
+    }
+}
+(20 marks)\
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+public class ProgrammingLanguageSelector {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Programming Language Selector");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 200);
+        frame.setLayout(null);
+       String[] languages = {"Java", "Python", "C++", "JavaScript", "Ruby"};
+        JComboBox<String> languageComboBox = new JComboBox<>(languages);
+        languageComboBox.setBounds(50, 30, 200, 30); // Set position and size
+       JLabel selectedLanguageLabel = new JLabel("");
+        selectedLanguageLabel.setBounds(50, 70, 200, 30); // Set position and size
+       JButton showButton = new JButton("Show");
+        showButton.setBounds(100, 110, 100, 30); // Set position and size
+       showButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedLanguage = (String) languageComboBox.getSelectedItem();
+                selectedLanguageLabel.setText("Selected Language: " + selectedLanguage);
+            }
+        });
+       frame.add(languageComboBox);
+        frame.add(selectedLanguageLabel);
+        frame.add(showButton);
+       frame.setVisible(true);
+    }
+}
+(20 marks)\

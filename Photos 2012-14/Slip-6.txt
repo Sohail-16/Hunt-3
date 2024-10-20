@@ -1,0 +1,158 @@
+import java.util.*;
+public class UniqueSortedCollection {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+       Set<Integer> numbers = new TreeSet<>();
+       System.out.print("Enter the number of integers: ");
+        int n = scanner.nextInt();
+       System.out.println("Enter " + n + " integers:");
+        for (int i = 0; i < n; i++) {
+            int num = scanner.nextInt();
+            numbers.add(num); 
+        }
+       System.out.println("Numbers in sorted order: " + numbers);
+       System.out.print("Enter the number to search: ");
+        int searchElement = scanner.nextInt();
+       if (numbers.contains(searchElement)) {
+            System.out.println("Element " + searchElement + " is found in the collection.");
+        } else {
+            System.out.println("Element " + searchElement + " is not found in the collection.");
+        }
+       scanner.close();
+    }
+}
+(10 marks)\
+import java.util.Scanner;
+class Employee {
+    private int id;
+    private String name;
+    private double salary;
+    public Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+    public double getSalary() {
+        return salary;
+    }
+    public String getName() {
+        return name;
+    }
+}
+public class EmployeeDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+       System.out.print("Enter the number of employees: ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+       Employee[] employees = new Employee[n];
+       for (int i = 0; i < n; i++) {
+            System.out.println("Enter details of Employee " + (i + 1) + ":");
+            System.out.print("ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+           System.out.print("Name: ");
+            String name = scanner.nextLine();
+           System.out.print("Salary: ");
+            double salary = scanner.nextDouble();
+           employees[i] = new Employee(id, name, salary);
+        }
+       Employee maxSalaryEmployee = employees[0];
+        for (int i = 1; i < n; i++) {
+            if (employees[i].getSalary() > maxSalaryEmployee.getSalary()) {
+                maxSalaryEmployee = employees[i];
+            }
+        }
+       System.out.println("Employee with the maximum salary: " + maxSalaryEmployee.getName());
+       scanner.close();
+    }
+}
+(20 marks)\
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+public class Calculator extends JFrame implements ActionListener {
+    private JTextField display;
+    private JButton[] buttons;
+    private String[] buttonLabels = {
+        "7", "8", "9", "/", 
+        "4", "5", "6", "*", 
+        "1", "2", "3", "-", 
+        "0", ".", "=", "+", 
+        "Clear"
+    };
+    private String currentInput = "";
+    private double num1 = 0, num2 = 0;
+    private String operator = "";
+    public Calculator() {
+        setTitle("Calculator");
+        setSize(300, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        display = new JTextField();
+        display.setEditable(false);
+        display.setHorizontalAlignment(JTextField.RIGHT);
+        add(display, BorderLayout.NORTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(5, 4, 10, 10)); // 5 rows, 4 columns
+        buttons = new JButton[buttonLabels.length];
+        for (int i = 0; i < buttonLabels.length; i++) {
+            buttons[i] = new JButton(buttonLabels[i]);
+            buttons[i].addActionListener(this);
+            buttonPanel.add(buttons[i]);
+        }
+        add(buttonPanel, BorderLayout.CENTER);
+    }
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        if (command.equals("Clear")) {
+            currentInput = "";
+            display.setText("");
+            num1 = num2 = 0;
+            operator = "";
+            return;
+        }
+        if (command.matches("[0-9.]")) {
+            currentInput += command;
+            display.setText(currentInput);
+            return;
+        }
+        if (command.matches("[+\\-*/]")) {
+            num1 = Double.parseDouble(currentInput);
+            operator = command;
+            currentInput = "";
+            return;
+        }
+        if (command.equals("=")) {
+            num2 = Double.parseDouble(currentInput);
+            double result = 0;
+            switch (operator) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+                case "/":
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                    } else {
+                        display.setText("Error: Divide by 0");
+                        return;
+                    }
+                    break;
+            }
+            display.setText(String.valueOf(result));
+            currentInput = String.valueOf(result);  
+            }
+    }
+   public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+        calculator.setVisible(true);
+    }
+}
+(20 marks)\
