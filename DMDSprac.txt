@@ -1,0 +1,1289 @@
+slip 1
+Q1.Write a R program to add, multiply and divide two vectors of integertype. (Vector length should be minimum 4).
+
+# Define two integer vectors
+vector1 <- c(4, 8, 12, 16)
+vector2 <- c(2, 4, 6, 8)
+
+# Check if both vectors have the same length
+if (length(vector1) == length(vector2)) {
+  
+  # Addition
+  addition_result <- vector1 + vector2
+  cat("Addition Result:\n")
+  print(addition_result)
+  
+  # Multiplication
+  multiplication_result <- vector1 * vector2
+  cat("Multiplication Result:\n")
+  print(multiplication_result)
+  
+  # Division
+  division_result <- vector1 / vector2
+  cat("Division Result:\n")
+  print(division_result)
+  
+} else {
+  cat("Error: Vectors must be of the same length.")
+}
+
+Q2.Consider the student data set. It can be downloaded from: https://drive.google.com/open?id=1oakZCv7g3mlmCSdv9J8kdSaqO 5_6dIOw . Write a programme in python to apply simple linear regression and find out mean absolute error, mean squared error and root mean squared error. [20 Marks]
+
+ import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_erro
+r
+csv = 'student_scores.csv'
+data = pd.read_csv(csv)
+x = data[['Hours']]
+y = data['Scores']
+model = LinearRegression().fit(x, y)
+y_pred = model.predict(x)
+mae = mean_absolute_error(y, y_pred)
+mse = mean_squared_error(y, y_pred)
+rmse = mean_squared_error(y, y_pred, squared=False)
+print(f'Mean Absolute Error: {mae:.2f}')
+print(f'Mean Squared Error: {mse:.2f}')
+print(f'Root Mean Squared Error: {rmse:.2f}')
+
+
+slip 2
+
+Q1. Write an R program to calculate the multiplication table using a function.
+
+# Define a function to generate the multiplication table
+multiplication_table <- function(n, limit = 10) {
+  cat("Multiplication Table for", n, ":\n")
+  for (i in 1:limit) {
+    result <- n * i
+    cat(n, "x", i, "=", result, "\n")
+  }
+}
+
+# Example usage
+number <- 5  # Change this number to generate a different table
+multiplication_table(number)
+
+Q2.	Write a python program to implement k-means algorithms on asynthetic dataset.	[20 Marks]
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.decomposition import PCA
+
+# Step 1: Load the Iris dataset
+iris = load_iris()
+X = iris.data  # Features
+y = iris.target  # True labels (for comparison)
+
+# Step 2: Perform Agglomerative Clustering
+# Choose the number of clusters (e.g., 3)
+n_clusters = 3
+agg_clustering = AgglomerativeClustering(n_clusters=n_clusters)
+clusters = agg_clustering.fit_predict(X)
+
+# Step 3: Reduce dimensions for visualization (using PCA)
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# Step 4: Plot the clusters
+plt.figure(figsize=(10, 6))
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=clusters, cmap='viridis', marker='o', edgecolor='k', s=100)
+plt.title('Agglomerative Clustering on Iris Dataset')
+plt.xlabel('PCA Component 1')
+plt.ylabel('PCA Component 2')
+plt.grid()
+plt.colorbar(label='Cluster Label')
+plt.show()
+
+# Optional: Compare with true labels
+plt.figure(figsize=(10, 6))
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap='viridis', marker='o', edgecolor='k', s=100)
+plt.title('True Labels of Iris Dataset')
+plt.xlabel('PCA Component 1')
+plt.ylabel('PCA Component 2')
+plt.grid()
+plt.colorbar(label='True Label')
+plt.show()
+
+slip 3
+
+Q1. Write a R program to reverse a number and also calculate the sum ofdigits of that number.	[10 Marks]
+
+# Input number
+number <- 12345  # Change this number to test with different values
+
+# Convert the number to a string to manipulate it
+num_str <- as.character(number)
+
+# Reverse the number
+reversed_str <- rev(strsplit(num_str, "")[[1]])
+reversed_num <- as.numeric(paste(reversed_str, collapse = ""))
+
+# Calculate the sum of the digits
+digits <- as.numeric(strsplit(num_str, "")[[1]])
+sum_of_digits <- sum(digits)
+
+# Output the results
+cat("Reversed Number:", reversed_num, "\n")
+cat("Sum of Digits:", sum_of_digits, "\n")
+
+Q2. Consider the following observations/data. And apply simple linear regression and find out estimated coefficients b0 and b1.( use numpypackage) x=[0,1,2,3,4,5,6,7,8,9,11,13]
+y = ([1, 3, 2, 5, 7, 8, 8, 9, 10, 12,16, 18]	[20 Marks]
+
+import numpy as np
+x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13])
+y = np.array([1, 3, 2, 5, 7, 8, 8, 9, 10, 12, 16, 18])
+A = np.vstack([x, np.ones(len(x))]).T
+b, a = np.linalg.lstsq(A, y, rcond=None)[0]
+print(f'Estimated coefficients:\n b = {b:.2f} \n a = {a:.2f}')
+
+slip 4
+
+Q1. Write a R program to calculate the sum of two matrices of given size.	[10 Marks]
+
+# Get matrix dimensions from the user
+cat("Enter the number of rows and columns for the matrices:\n")
+rows <- as.integer(readline(prompt = "Number of rows: "))
+cols <- as.integer(readline(prompt = "Number of columns: "))
+
+# Initialize the matrices
+matrix_a <- matrix(0, nrow = rows, ncol = cols)
+matrix_b <- matrix(0, nrow = rows, ncol = cols)
+
+# Read the first matrix
+cat("Enter the elements of Matrix A (row-wise):\n")
+for (i in 1:rows) {
+  for (j in 1:cols) {
+    matrix_a[i, j] <- as.numeric(readline(prompt = paste("Element [", i, ",", j, "]: ")))
+  }
+}
+
+# Read the second matrix
+cat("Enter the elements of Matrix B (row-wise):\n")
+for (i in 1:rows) {
+  for (j in 1:cols) {
+    matrix_b[i, j] <- as.numeric(readline(prompt = paste("Element [", i, ",", j, "]: ")))
+  }
+}
+
+# Calculate the sum of the two matrices
+matrix_sum <- matrix_a + matrix_b
+
+# Output the results
+cat("Matrix A:\n")
+print(matrix_a)
+
+cat("Matrix B:\n")
+print(matrix_b)
+
+cat("Sum of Matrix A and Matrix B:\n")
+print(matrix_sum)
+
+Q2. Consider following dataset weather=['Sunny','Sunny','Overcast','Rainy','Rainy','Rainy','Overcast','Sunny','Sunny','Rainy','Sunn y','Overcast','Overcast','Rainy'] temp=['Hot','Hot','Hot','Mild','Cool','Cool','Cool','Mild','Cool','Mild','Mild','Mild','Hot','Mild']
+play=['No','No','Yes','Yes','Yes','No','Yes','No','Yes','Yes','Yes','Yes','Yes','No'].
+Use Naïve Bayes algorithm to predict [0: Overcast, 2: Mild]tuple belongs to which class whether to play the sports or not.
+
+
+import pandas as pd
+from sklearn.naive_bayes import GaussianNB
+from sklearn.preprocessing import LabelEncoder
+
+# Data
+weather = ['Sunny', 'Sunny', 'Overcast', 'Rainy', 'Rainy', 'Rainy', 'Overcast', 'Sunny', 'Sunny', 'Rainy', 'Sunny', 'Overcast', 'Overcast', 'Rainy']
+temp = ['Hot', 'Hot', 'Hot', 'Mild', 'Cool', 'Cool', 'Cool', 'Mild', 'Cool', 'Mild', 'Mild', 'Mild', 'Hot', 'Mild']
+play = ['No', 'No', 'Yes', 'Yes', 'Yes', 'No', 'Yes', 'No', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'No']
+
+# Create DataFrame
+data = pd.DataFrame({
+    'Weather': weather,
+    'Temperature': temp,
+    'Play': play
+})
+
+# Encode categorical features
+label_encoders = {}
+for column in ['Weather', 'Temperature', 'Play']:
+    le = LabelEncoder()
+    data[column] = le.fit_transform(data[column])
+    label_encoders[column] = le
+
+# Define features and target variable
+X = data[['Weather', 'Temperature']]
+y = data['Play']
+
+# Initialize and train the Naïve Bayes Classifier
+nb = GaussianNB()
+nb.fit(X, y)
+
+# Define the feature tuple to predict
+feature_tuple = [0, 2]  # Corresponds to [Overcast, Mild]
+
+# Predict the class
+prediction = nb.predict([feature_tuple])
+predicted_class = label_encoders['Play'].inverse_transform(prediction)
+
+print(f"The predicted class for the feature tuple {feature_tuple} is: {predicted_class[0]}")
+
+
+
+slip 5
+Q1. Write a R program to concatenate two given factors.	
+
+# Create the first factor
+cat("Enter levels for the first factor (comma-separated):\n")
+levels1 <- strsplit(readline(prompt = "Levels: "), ",")[[1]]
+factor1 <- factor(levels1)
+
+# Create the second factor
+cat("Enter levels for the second factor (comma-separated):\n")
+levels2 <- strsplit(readline(prompt = "Levels: "), ",")[[1]]
+factor2 <- factor(levels2)
+
+# Concatenate the two factors
+concatenated_factor <- factor(c(levels(factor1), levels(factor2)))
+
+# Output the results
+cat("First Factor:\n")
+print(factor1)
+
+cat("Second Factor:\n")
+print(factor2)
+
+cat("Concatenated Factor:\n")
+print(concatenated_factor)
+
+Q2. Write a Python program build Decision Tree Classifier using Scikit- learn package for diabetes data set (download database from https://www.kaggle.com/uciml/pima- indians-diabetes-database)[20 Marks]
+
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+# Load the dataset
+data = pd.read_csv("diabetes.csv" )
+
+# Display the first few rows of the dataset
+print(data.head())
+
+# Separate the features and target variable
+X = data.drop(columns='Outcome')  # Features
+y = data['Outcome']  # Target variable
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Initialize the Decision Tree Classifier
+clf = DecisionTreeClassifier(random_state=42)
+
+# Train the classifier
+clf.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = clf.predict(X_test)
+
+# Evaluate the classifier
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy * 100:.2f}%')
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+# Visualize the Decision Tree
+plt.figure(figsize=(20, 10))
+tree.plot_tree(clf, feature_names=X.columns, class_names=['Non-Diabetic', 'Diabetic'], filled=True)
+plt.show()
+
+
+slip 6
+
+Q1. Write a R program to create a data frame using two given vectors and displaythe duplicate elements.	[10 Marks]
+
+# Input two vectors from the user
+cat("Enter elements for the first vector (comma-separated):\n")
+vector1 <- as.numeric(unlist(strsplit(readline(prompt = "Vector 1: "), ",")))
+
+cat("Enter elements for the second vector (comma-separated):\n")
+vector2 <- as.numeric(unlist(strsplit(readline(prompt = "Vector 2: "), ",")))
+
+# Create a data frame from the two vectors
+data_frame <- data.frame(Vector1 = vector1, Vector2 = vector2)
+
+# Display the data frame
+cat("Data Frame:\n")
+print(data_frame)
+
+# Find duplicate elements in the data frame
+duplicates <- data_frame[duplicated(data_frame) | duplicated(data_frame, fromLast = TRUE), ]
+
+# Display duplicate elements
+cat("Duplicate Elements:\n")
+print(duplicates)
+
+Q2. Write a python program to implement hierarchical Agglomerative clusteringalgorithm. (Download Customer.csv dataset from github.com).
+
+url----> https://github.com/TrainingByPackt/Data-Science-with-Python/blob/master/Chapter01/Data/Wholesale%20customers%20data.csv
+
+
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
+
+# Step 1: Load the dataset
+# Replace 'path_to_your_dataset' with the actual path to your dataset
+url = 'wholesale-customer.csv'
+df = pd.read_csv(url)
+
+# Step 2: Preprocessing the data
+# Dropping non-numeric columns (Channel and Region)
+data = df.drop(['Channel', 'Region'], axis=1)
+
+# Step 3: Perform Hierarchical Clustering
+# Linkage matrix
+Z = linkage(data, method='ward')
+
+# Step 4: Plotting the Dendrogram
+plt.figure(figsize=(12, 8))
+dendrogram(Z, truncate_mode='level', p=3)
+plt.title('Dendrogram for Hierarchical Clustering')
+plt.xlabel('Customers')
+plt.ylabel('Distance')
+plt.grid()
+plt.show()
+
+# Step 5: Form clusters
+# Define the number of clusters (e.g., 3)
+n_clusters = 3
+clusters = fcluster(Z, n_clusters, criterion='maxclust')
+
+# Step 6: Add cluster labels to the original DataFrame
+df['Cluster'] = clusters
+
+# Step 7: Visualize the clusters
+# For visualization, let's plot the first two features (Fresh and Milk)
+plt.figure(figsize=(10, 6))
+plt.scatter(df['Fresh'], df['Milk'], c=df['Cluster'], cmap='viridis', s=100)
+plt.title('Hierarchical Clustering of Wholesale Customers')
+plt.xlabel('Fresh Products')
+plt.ylabel('Milk Products')
+plt.grid()
+plt.colorbar(label='Cluster')
+plt.show()
+
+
+
+
+slip 7
+
+Q1. Write a R program to create a sequence of numbers from 20 to 50 and findthe mean of numbers from 20 to 60 and sum of numbers from 51 to 91.
+
+# Create a sequence of numbers from 20 to 50
+sequence_20_to_50 <- 20:50
+# Display the sequence
+cat("Sequence from 20 to 50:\n")
+print(sequence_20_to_50)
+# Calculate the mean of numbers from 20 to 60
+mean_20_to_60 <- mean(20:60)
+# Calculate the sum of numbers from 51 to 91
+sum_51_to_91 <- sum(51:91)
+# Output the results
+cat("Mean of numbers from 20 to 60:", mean_20_to_60, "\n")
+cat("Sum of numbers from 51 to 91:", sum_51_to_91, "\n")
+
+Q2. Consider the following observations/data. And apply simple linear regression and find out estimated coefficients b1 and b1 Also analyse theperformance of the model
+(Use sklearn package)
+x = np.array([1,2,3,4,5,6,7,8])
+y = np.array([7,14,15,18,19,21,26,23])
+
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+x = np.array([1, 2, 3, 4, 5, 6, 7, 8]).reshape(-1, 1)
+y = np.array([7, 14, 15, 18, 19, 21, 26, 23])
+model = LinearRegression().fit(x, y)
+b = model.coef_[0]
+a = model.intercept_
+print(f'Estimated coefficients:\n b = {b:.2f} \n a = {a:.2f}')
+y_pred = model.predict(x)
+mse = np.mean((y - y_pred) ** 2)
+rmse = np.sqrt(mse)
+print(f'Mean Squared Error: {mse:.2f}')
+print(f'Root Mean Squared Error: {rmse:.2f}')
+
+
+
+slip 8
+
+Q1. Write a R program to get the first 10 Fibonacci numbers.
+
+# Initialize the Fibonacci sequence
+fibonacci <- numeric(10)
+fibonacci[1] <- 0  # First Fibonacci number
+fibonacci[2] <- 1  # Second Fibonacci number
+
+# Calculate the next Fibonacci numbers
+for (i in 3:10) {
+  fibonacci[i] <- fibonacci[i - 1] + fibonacci[i - 2]
+}
+
+# Output the first 10 Fibonacci numbers
+cat("The first 10 Fibonacci numbers are:\n")
+print(fibonacci)
+
+Q2. Write a python program to implement k-means algorithm to build prediction model (Use Credit Card Dataset CC GENERAL.csv Download from kaggle.com) [20 Marks]
+
+import numpy as nm
+import matplotlib.pyplot as mtp
+import pandas as pd
+
+# Load the dataset
+df = pd.read_csv('CC GENERAL.csv')
+
+# Display the first few rows of the dataset
+print(df.head())
+
+# Check for missing values and drop rows with NaN values
+df.dropna(inplace=True)
+
+# Selecting relevant features for clustering (you can choose which features to use)
+features = df.drop(columns=['CUST_ID']).values  # Using .values to get numpy array
+
+# K-Means Clustering Implementation
+def kmeans(X, k, max_iters=100):
+    # Randomly initialize the centroids
+    centroids = X[nm.random.choice(X.shape[0], k, replace=False)]
+    
+    for _ in range(max_iters):
+        # Calculate distances from data points to centroids
+        distances = nm.linalg.norm(X[:, nm.newaxis] - centroids, axis=2)
+        
+        # Assign clusters based on closest centroid
+        labels = nm.argmin(distances, axis=1)
+        
+        # Calculate new centroids
+        new_centroids = nm.array([X[labels == i].mean(axis=0) for i in range(k)])
+        
+        # If centroids do not change, break
+        if nm.all(centroids == new_centroids):
+            break
+        
+        centroids = new_centroids
+        
+    return labels, centroids
+
+# Specify the number of clusters
+k = 4  # You can adjust this based on your analysis
+
+# Run K-Means
+labels, centroids = kmeans(features, k)
+
+# Add cluster labels to the dataframe
+df['Cluster'] = labels
+
+# Display the first few rows with cluster labels
+print(df.head())
+
+# Optional: Plotting clusters (use only 2 features for visualization)
+mtp.scatter(features[:, 0], features[:, 1], c=labels, cmap='viridis', marker='o', edgecolor='k')
+mtp.scatter(centroids[:, 0], centroids[:, 1], c='red', s=200, alpha=0.75, marker='X')  # Plot centroids
+mtp.title('K-Means Clustering of Credit Card Data')
+mtp.xlabel('Feature 1')
+mtp.ylabel('Feature 2')
+mtp.show()
+
+
+
+
+slip 9
+
+Q1. Write an R program to create a Data frames which contain details of 5 employees and display summary of the data.	[10 Marks]
+
+# Create vectors for employee details
+employee_id <- c(101, 102, 103, 104, 105)
+employee_name <- c("Alice", "Bob", "Charlie", "David", "Eve")
+department <- c("HR", "IT", "Finance", "Marketing", "IT")
+salary <- c(50000, 60000, 55000, 65000, 70000)
+
+# Create a data frame from the vectors
+employee_data <- data.frame(
+  EmployeeID = employee_id,
+  EmployeeName = employee_name,
+  Department = department,
+  Salary = salary,
+  stringsAsFactors = FALSE
+)
+
+# Display the data frame
+cat("Employee Data Frame:\n")
+print(employee_data)
+
+# Display a summary of the data frame
+cat("\nSummary of the Employee Data:\n")
+summary(employee_data)
+
+Q2. Write a Python program to build an SVM model to Cancer dataset. The dataset is available in the scikit-learn library. Check the accuracyof model with precision and recall.	[20 Marks]
+
+
+
+import numpy as np
+import pandas as pd
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
+
+# Load the Cancer dataset from scikit-learn
+cancer = datasets.load_breast_cancer()
+
+# Create a DataFrame for easier manipulation
+data = pd.DataFrame(data=cancer.data, columns=cancer.feature_names)
+data['target'] = cancer.target
+
+# Features and target variable
+X = data.drop('target', axis=1)
+y = data['target']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Initialize and train the SVM model
+svm_model = SVC(kernel='linear', random_state=42)
+svm_model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = svm_model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+
+print(f"Accuracy: {accuracy:.2f}")
+print(f"Precision: {precision:.2f}")
+print(f"Recall: {recall:.2f}")
+
+# Optionally, you can print a full classification report
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+slip 10
+
+Q1. Write a R program to find the maximum and the minimum value of a givenvector	[10 Marks]
+
+# Define a default vector
+default_vector <- c(15, 22, 8, 34, 5, 19)
+
+# Find the maximum and minimum values
+max_value <- max(default_vector)
+min_value <- min(default_vector)
+
+# Output the results
+cat("The default vector is:\n")
+print(default_vector)
+cat("Maximum value:", max_value, "\n")
+cat("Minimum value:", min_value, "\n")
+
+Q2. Write a Python Programme to read the dataset (“Iris.csv”). dataset download from (https://archive.ics.uci.edu/ml/datasets/iris) and apply Apriori algorithm.	[20 Marks]
+
+
+
+# Install The Necessary Library 
+	!pip install apyori  (For Jupyter Notebook)
+	 pip install apyori  (For Terminal)
+
+
+
+
+
+# Import necessary libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from apyori import apriori
+
+# Step 1: Load the dataset
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class']
+iris = pd.read_csv(url, header=None, names=columns)
+
+# Step 2: Discretize the continuous features into categorical data
+# For simplicity, we will divide each feature into 3 bins (low, medium, high)
+iris['sepal_length'] = pd.cut(iris['sepal_length'], bins=3, labels=['low', 'medium', 'high'])
+iris['sepal_width'] = pd.cut(iris['sepal_width'], bins=3, labels=['low', 'medium', 'high'])
+iris['petal_length'] = pd.cut(iris['petal_length'], bins=3, labels=['low', 'medium', 'high'])
+iris['petal_width'] = pd.cut(iris['petal_width'], bins=3, labels=['low', 'medium', 'high'])
+
+# Step 3: Prepare the data for the Apriori algorithm
+# Convert each row into a list of strings representing the categories
+transactions = []
+for i in range(0, len(iris)):
+    transactions.append([str(iris.iloc[i, j]) for j in range(iris.shape[1])])
+
+# Step 4: Apply the Apriori algorithm
+# Minimum support = 0.2, minimum confidence = 0.6, minimum lift = 1.0
+rules = apriori(transactions, min_support=0.2, min_confidence=0.6, min_lift=1.0, min_length=2)
+
+# Step 5: Extract and print the results
+results = list(rules)
+
+# Print the association rules
+for rule in results:
+    print(f"Rule: {rule.items}")
+    print(f"Support: {rule.support}")
+    for ordered_stat in rule.ordered_statistics:
+        print(f"Confidence: {ordered_stat.confidence}")
+        print(f"Lift: {ordered_stat.lift}")
+    print("="*40)
+
+
+Slip 11
+
+Q1Q1. Write a R program to find all elements of a given list that are not inanother given list.
+
+# Define the two lists
+AB <- list("x", "y", "z")
+CD <- list("X", "Y", "Z", "x", "y", "z")
+
+# Convert lists to vectors
+AB_vec <- unlist(AB)
+CD_vec <- unlist(CD)
+
+# Find elements in AB that are not in CD
+diff_list <- setdiff(AB_vec, CD_vec)
+
+# Print the result
+print(diff_list)
+
+
+Q2. Write a python program to implement hierarchical clustering algorithm. (Download 
+Wholesale customers data dataset from github.com). 
+
+url----> https://github.com/TrainingByPackt/Data-Science-with-Python/blob/master/Chapter01/Data/Wholesale%20customers%20data.csv
+
+
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
+
+# Step 1: Load the dataset
+# Replace 'path_to_your_dataset' with the actual path to your dataset
+url = 'wholesale-customer.csv'
+df = pd.read_csv(url)
+
+# Step 2: Preprocessing the data
+# Dropping non-numeric columns (Channel and Region)
+data = df.drop(['Channel', 'Region'], axis=1)
+
+# Step 3: Perform Hierarchical Clustering
+# Linkage matrix
+Z = linkage(data, method='ward')
+
+# Step 4: Plotting the Dendrogram
+plt.figure(figsize=(12, 8))
+dendrogram(Z, truncate_mode='level', p=3)
+plt.title('Dendrogram for Hierarchical Clustering')
+plt.xlabel('Customers')
+plt.ylabel('Distance')
+plt.grid()
+plt.show()
+
+# Step 5: Form clusters
+# Define the number of clusters (e.g., 3)
+n_clusters = 3
+clusters = fcluster(Z, n_clusters, criterion='maxclust')
+
+# Step 6: Add cluster labels to the original DataFrame
+df['Cluster'] = clusters
+
+# Step 7: Visualize the clusters
+# For visualization, let's plot the first two features (Fresh and Milk)
+plt.figure(figsize=(10, 6))
+plt.scatter(df['Fresh'], df['Milk'], c=df['Cluster'], cmap='viridis', s=100)
+plt.title('Hierarchical Clustering of Wholesale Customers')
+plt.xlabel('Fresh Products')
+plt.ylabel('Milk Products')
+plt.grid()
+plt.colorbar(label='Cluster')
+plt.show()
+
+
+Slip 12
+
+Q1 Q1. Write a R program to create a Dataframes which contain details of 5employees and display the details.
+Employee contain (empno,empname,gender,age,designation)
+
+
+# Create a DataFrame with details of 5 employees
+employee_data <- data.frame(
+  empno = c(101, 102, 103, 104, 105),
+  empname = c("Alice", "Bob", "Charlie", "David", "Eve"),
+  gender = c("F", "M", "M", "M", "F"),
+  age = c(25, 30, 28, 35, 24),
+  designation = c("Engineer", "Manager", "Analyst", "Developer", "Designer")
+)
+
+# Display the DataFrame
+print("Employee Details:")
+print(employee_data)
+
+
+Q2Q2. Write a python program to implement multiple Linear Regression modelfor a car dataset.
+Dataset can be downloaded from: https://www.w3schools.com/python/python_ml_multiple_regression.asp
+
+
+ import pandas as pd
+ from sklearn.linear_model import LinearRegression
+ csv = "cardata.csv"
+ data = pd.read_csv(csv)
+ X = data[['Volume', 'Weight']]
+ y = data['CO2']
+ model = LinearRegression().fit(X, y)
+ print('Coefficients:', model.coef_)
+ print('Intercept:', model.intercept_)
+
+
+Slip 13
+
+Q1Q1. Draw a pie chart using R programming for the following datadistribution:
+
+Digits on Dice	1	2	3	4	5	6
+Frequency of getting each number	7	2	6	3	4	8
+
+
+# Data for digits on dice and frequency of getting each number
+digits <- c(1, 2, 3, 4, 5, 6)
+frequency <- c(7, 2, 6, 3, 4, 8)
+
+# Create labels for the pie chart
+labels <- paste("Digit", digits, sep=" ")
+
+# Draw the pie chart (output displayed directly on the screen)
+pie(frequency, labels = labels, main = "Pie Chart of Dice Rolls", col = rainbow(length(frequency)))
+
+# Add a legend
+legend("topright", legend = labels, fill = rainbow(length(frequency)))
+
+
+Q2
+Q2.	Write a Python program to read “StudentsPerformance.csv” file. Solvefollowing:
+- To display the shape of dataset.
+- To display the top rows of the dataset with their columns.Note: Download dataset from following link :
+(https://www.kaggle.com/spscientist/students-performance-inexams? select=StudentsPerformance.csv)
+
+
+import pandas as pd
+
+# Step 1: Load the dataset 
+data = pd.read_csv("StudentsPerformance.csv")
+
+# Step 2: Display the shape of the dataset
+print("Shape of the dataset (rows, columns):", data.shape)
+
+# Step 3: Display the top 5 rows of the dataset
+print("\nTop 5 rows of the dataset:")
+print(data.head())
+
+# Step 4: Display a random sample of rows (specify the number of rows, e.g., 5)
+random_rows = data.sample(n=5)
+print("\nRandomly selected rows from the dataset:")
+print(random_rows)
+
+# Step 5: Display the number of columns and the column names
+print("\nNumber of columns:", len(data.columns))
+print("Names of columns:", list(data.columns))
+
+
+
+Slip 14
+
+
+Q1Q1. Write a script in R to create a list of employees (name) and perform thefollowing:
+a.	Display names of employees in the list.
+b.	Add an employee at the end of the list
+c.	Remove the third element of the list.
+
+
+# Create a list of employee names
+employees <- list("Alice", "Bob", "Charlie", "David", "Eve")
+
+# a. Display names of employees in the list
+print("Employee Names:")
+print(employees)
+
+# b. Add an employee at the end of the list
+employees <- append(employees, "Frank")
+print("List after adding Frank:")
+print(employees)
+
+# c. Remove the third element of the list
+employees <- employees[-3]
+print("List after removing the third element (Charlie):")
+print(employees)
+
+
+Q2
+Q2. Write a Python Programme to apply Apriori algorithm on Groceries dataset. Dataset can be downloaded from (https://github.com/amankharwal/Websitedata/blob/master/Groceries
+_dataset.csv).
+Also display support and confidence for each rule.
+
+
+import numpy as np
+import pandas as pd
+from apyori import apriori
+
+# Step 1: Load the dataset from a direct link
+url = "https://raw.githubusercontent.com/amankharwal/Website-data/master/Groceries_dataset.csv"
+groceries = pd.read_csv(url)
+
+# Print the first few rows to verify the dataset is loaded correctly
+print("Dataset preview:")
+print(groceries.head())
+
+# Step 2: Prepare the data for the Apriori algorithm
+# Group items by 'Member_number' and aggregate them into lists of transactions
+transactions = groceries.groupby('Member_number')['itemDescription'].apply(list).values.tolist()
+
+# Print the first few transactions to verify the data preparation
+print("\nSample transactions:")
+print(transactions[:5])
+
+# Step 3: Apply the Apriori algorithm
+# Adjusted parameters: Increase min_support and min_confidence if needed
+rules = apriori(transactions, min_support=0.01, min_confidence=0.1, min_lift=2, min_length=2)
+
+# Step 4: Extract and display the results
+results = list(rules)
+
+# Step 5: Display the results (support and confidence for each rule)
+if results:
+    for rule in results:
+        print(f"Rule: {set(rule.items)}")
+        print(f"Support: {rule.support:.4f}")
+        for ordered_stat in rule.ordered_statistics:
+            print(f"Confidence: {ordered_stat.confidence:.4f}")
+            print(f"Lift: {ordered_stat.lift:.4f}")
+        print("="*40)
+else:
+    print("No rules found.")
+
+
+Slip 15
+
+Q1Q1.Write a R program to add, multiply and divide two vectors of integer type.(vector length should be minimum 4)
+
+# Create two vectors of integer type with a minimum length of 4
+vector1 <- c(10, 20, 30, 40)
+vector2 <- c(2, 4, 6, 8)
+
+# a. Add the two vectors
+addition <- vector1 + vector2
+print("Addition of vectors:")
+print(addition)
+
+# b. Multiply the two vectors
+multiplication <- vector1 * vector2
+print("Multiplication of vectors:")
+print(multiplication)
+
+# c. Divide the two vectors
+division <- vector1 / vector2
+print("Division of vectors:")
+print(division)
+
+
+Q2Q2. Write a Python program build Decision Tree Classifier for shows.csvfrom pandas and predict class label for show starring a 40 years old American comedian, with 10 years of experience, and a comedy ranking of 7? Create a csv file as shown in https://www.w3schools.com/python/python_ml_decision_tree.asp
+
+import pandas as pd 
+from sklearn.model_selection import train_test_split 
+from sklearn.preprocessing import LabelEncoder 
+from sklearn.tree import DecisionTreeClassifier, plot_tree 
+import matplotlib.pyplot as plt 
+# Load the data 
+data = pd.read_csv('shows.csv') 
+# Preprocess the data 
+# Convert categorical variables to numeric 
+label_encoders = {} 
+for column in ['Nationality', 'Go']: 
+le = LabelEncoder() 
+data[column] = le.fit_transform(data[column]) 
+label_encoders[column] = le 
+# Split features and target variable 
+X = data[['Age', 'Experience', 'Rank', 'Nationality']] 
+y = data['Go'] 
+# Split the data into training and testing sets 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=42) 
+# Initialize and train the Decision Tree Classifier 
+clf = DecisionTreeClassifier() 
+clf.fit(X_train, y_train) 
+# Evaluate the model 
+y_pred = clf.predict(X_test) 
+print("Accuracy on test set:", accuracy_score(y_test, y_pred)) 
+# Predict the class label for the new instance 
+# Create a DataFrame for the new instance 
+new_data = pd.DataFrame({ 
+'Age': [40], 
+'Experience': [10], 
+'Rank': [7], 
+'Nationality': [label_encoders['Nationality'].transform(['USA'])[0]] 
+}) 
+# Predict using the trained model 
+prediction = clf.predict(new_data) 
+# Convert the numeric prediction back to the original label 
+predicted_label = label_encoders['Go'].inverse_transform(prediction) 
+print(f"The predicted class label for the new show is: {predicted_label[0]}") 
+# Plot the Decision Tree 
+plt.figure(figsize=(20,10)) 
+plot_tree(clf, feature_names=['Age', 'Experience', 'Rank', 'Nationality'], 
+class_names=['NO', 'YES'], filled=True) 
+plt.title('Decision Tree Classifier') 
+plt.show() 
+
+
+Slip 16
+
+
+Q1
+Q1. Write a R program to create a simple bar plot of given data
+
+Year	Export	Import
+2001	26	35
+2002	32	40
+2003	35	50
+
+
+# Create a data frame with the given data
+data <- data.frame(
+  Year = c(2001, 2002, 2003),
+  Export = c(26, 32, 35),
+  Import = c(35, 40, 50)
+)
+
+# Display the data frame
+print("Data:")
+print(data)
+
+# Set up the bar plot
+barplot(
+  height = as.matrix(data[, c("Export", "Import")]),  # Convert to matrix for plotting
+  names.arg = data$Year,                               # Use Year for x-axis labels
+  beside = TRUE,                                       # Display bars side by side
+  col = c("lightblue", "lightgreen"),                 # Colors for the bars
+  main = "Export and Import Data (2001-2003)",        # Title of the plot
+  xlab = "Year",                                       # Label for x-axis
+  ylab = "Value"                                       # Label for y-axis
+)
+
+# Add a legend
+legend("topright", legend = c("Export", "Import"), fill = c("lightblue", "lightgreen"))
+
+
+Q2Q2. Write a Python program build Decision Tree Classifier using Scikit-learnpackage for diabetes data set (download database from https://www.kaggle.com/uciml/pima-indians- diabetes-database)
+
+
+import pandas as pd 
+from sklearn.model_selection import train_test_split 
+from sklearn.tree import DecisionTreeClassifier 
+from sklearn.metrics import accuracy_score, classification_report, 
+confusion_matrix 
+from sklearn import tree 
+import matplotlib.pyplot as plt 
+# Load the dataset 
+data = pd.read_csv("diabetes.csv" ) 
+# Display the first few rows of the dataset 
+print(data.head()) 
+# Separate the features and target variable 
+X = data.drop(columns='Outcome')  # Features 
+y = data['Outcome']  # Target variable 
+# Split the dataset into training and testing sets 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, 
+random_state=42) 
+# Initialize the Decision Tree Classifier 
+clf = DecisionTreeClassifier(random_state=42) 
+# Train the classifier 
+clf.fit(X_train, y_train) 
+# Make predictions on the test set 
+y_pred = clf.predict(X_test) 
+# Evaluate the classifier 
+accuracy = accuracy_score(y_test, y_pred) 
+print(f'Accuracy: {accuracy * 100:.2f}%') 
+print("\nClassification Report:") 
+print(classification_report(y_test, y_pred)) 
+print("\nConfusion Matrix:") 
+print(confusion_matrix(y_test, y_pred)) 
+# Visualize the Decision Tree 
+plt.figure(figsize=(20, 10)) 
+tree.plot_tree(clf, feature_names=X.columns, class_names=['Non-Diabetic', 
+'Diabetic'], filled=True) 
+plt.show()
+
+
+Slip 17
+
+
+Q1Q1. Write a R program to get the first 20 Fibonacci numbers.
+
+# Function to generate Fibonacci numbers
+fibonacci_numbers <- function(n) {
+  fib_sequence <- numeric(n)  # Create a numeric vector to store Fibonacci numbers
+  fib_sequence[1] <- 0        # First Fibonacci number
+  fib_sequence[2] <- 1        # Second Fibonacci number
+  
+  # Generate Fibonacci sequence
+  for (i in 3:n) {
+    fib_sequence[i] <- fib_sequence[i - 1] + fib_sequence[i - 2]
+  }
+  
+  return(fib_sequence)
+}
+
+# Get the first 20 Fibonacci numbers
+first_20_fib <- fibonacci_numbers(20)
+
+# Display the result
+print("First 20 Fibonacci numbers:")
+print(first_20_fib)
+
+
+Q2Q2. Write a python programme to implement multiple linear regression modelfor stock market data frame as follows:
+Stock_Market = {'Year': [2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2017,2016,2
+016,20,16,2016,2016,2016,2016,2016,2016,2016,2016,2016],
+'Month': [12, 11,10,9,8,7,6,5,4,3,2,1,12,11,10,9,8,7,6,5,4,3,2,1],
+'Interest_Rate': [2.75,2.5,2.5,2.5,2.5,2.5,2.5,2.25,2.25,2.25,2,2,2,1.75,1.75,1.75,1.75,1.75,1
+.75,1.75,1.75,1.75,1.75,1.75],
+'Unemployment_Rate': [5.3,5.3,5.3,5.3,5.4,5.6,5.5,5.5,5.5,5.6,5.7,5.9,6,5.9,5.8,6.1,6.2,6.1,6.1,6.1,5
+.9,6.2,6.2,6.1],
+'Stock_Index_Price': [1464,1394,1357,1293,1256,1254,1234,1195,1159,1167,1130,1075,1047,
+965,943,958,971,949,884,866,876,822,704,719] }
+And draw a graph of stock market price verses interest rate.
+
+
+
+ import pandas as pd
+ from sklearn.linear_model import LinearRegression
+ import matplotlib.pyplot as plt
+ data = {
+ 'Year': [2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017,
+ 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016],
+ 'Month': [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 12, 11, 10,
+ 9, 8],
+ 'Interest_Rate': [2.75, 2.5, 2.5, 2.5, 2.5, 2.25, 2.25, 2.25,
+ 2.25, 2.2, 1.75, 1.75, 1.75, 1.75, 1.75, 1.75, 1.7],
+ 'Unemployment_Rate': [5.3, 5.3, 5.3, 5.4, 5.5, 5.5, 5.5, 5.6,
+ 5.7, 5.9, 6.0, 5.9, 5.8, 6.1, 6.2, 6.1, 6.0],
+ 'Stock_Index_Price': [1464, 1394, 1357, 1293, 1256, 1254, 123
+ 4, 1195, 1190, 1167, 1130, 1075, 1047, 965, 943, 958, 971]
+ }
+ df = pd.DataFrame(data)
+ X = df[['Interest_Rate', 'Unemployment_Rate']]
+ y = df['Stock_Index_Price']
+ model = LinearRegression().fit(X, y)
+ plt.scatter(df['Interest_Rate'], df['Stock_Index_Price'], color='b
+ lue')
+ plt.xlabel('Interest Rate')
+ plt.ylabel('Stock Index Price')
+ plt.title('Stock Market Price vs Interest Rate')
+ plt.show(
+
+
+Slip 18
+
+Q1Q1. Write a R program to find the maximum and the minimum value of a givenvector	[10 Marks]
+
+# Create a vector of numeric values
+numeric_vector <- c(10, 25, 3, 45, 12, 7, 22)
+
+# Display the original vector
+print("Original Vector:")
+print(numeric_vector)
+
+# Find the maximum value
+max_value <- max(numeric_vector)
+
+# Find the minimum value
+min_value <- min(numeric_vector)
+
+# Display the results
+cat("Maximum Value:", max_value, "\n")
+cat("Minimum Value:", min_value, "\n")
+
+
+Q2
+Q2. Consider the following observations/data. And apply simple linear regression and find out estimated coefficients b1 and b1 Also analyse theperformance of the model
+(Use sklearn package)
+x = np.array([1,2,3,4,5,6,7,8])
+y = np.array([7,14,15,18,19,21,26,23])
+
+
+import numpy as np
+ from sklearn.linear_model import LinearRegression
+ x = np.array([1, 2, 3, 4, 5, 6, 7, 8]).reshape(-1, 1)
+ y = np.array([7, 14, 15, 18, 19, 21, 26, 23])
+ model = LinearRegression().fit(x, y)
+ b = model.coef_[0]
+ a = model.intercept_
+ print(f'Estimated coefficients:\n b = {b:.2f} \n a = {a:.2f}')
+ y_pred = model.predict(x)
+ mse = np.mean((y- y_pred) ** 2)
+ rmse = np.sqrt(mse)
+ print(f'Mean Squared Error: {mse:.2f}')
+ print(f'Root Mean Squared Error: {rmse:.2f}')
+
+
+Slip 19
+
+Q1Q1. Write a R program to create a Dataframes which contain details of 5 Studentsand display the details.
+Students contain (Rollno,Studname,Address,Marks)
+
+
+# Create a data frame with details of 5 students
+students <- data.frame(
+  Rollno = c(101, 102, 103, 104, 105),
+  Studname = c("Alice", "Bob", "Charlie", "David", "Eve"),
+  Address = c("123 Maple St", "456 Oak St", "789 Pine St", "321 Birch St", "654 Cedar St"),
+  Marks = c(85, 92, 78, 88, 95)
+)
+
+# Display the data frame
+print("Student Details:")
+print(students)
+
+
+Q2
+Q2. Write a python program to implement multiple Linear Regression modelfor a car dataset.
+Dataset can be downloaded from: https://www.w3schools.com/python/python_ml_multiple_regression.asp
+
+
+
+import pandas as pd
+ from sklearn.linear_model import LinearRegression
+ csv = "cardata.csv"
+ data = pd.read_csv(csv)
+ X = data[['Volume', 'Weight']]
+ y = data['CO2']
+ model = LinearRegression().fit(X, y)
+ print('Coefficients:', model.coef_)
+ print('Intercept:', model.intercept_)
+
+
+Slip 20
+
+
+Q1. Write a R program to create a data frame from four given vectors.
+
+
+# Create four vectors
+vector1 <- c(1, 2, 3, 4, 5)                # Example: IDs
+vector2 <- c("Alice", "Bob", "Charlie", "David", "Eve")  # Example: Names
+vector3 <- c(23, 30, 25, 35, 28)           # Example: Ages
+vector4 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)  # Example: Enrollment status
+
+# Create a data frame from the vectors
+students_df <- data.frame(
+  ID = vector1,
+  Name = vector2,
+  Age = vector3,
+  Enrolled = vector4
+)
+
+# Display the data frame
+print("Data Frame created from vectors:")
+print(students_df)
+
+
+Q2Q2. Write a python program to implement hierarchical Agglomerativeclustering algorithm. (Download Customer.csv dataset from github.com).
+
+
+url--->  https://gist.github.com/akuks/2e9b08cebef0181b583a1dff4a97f8a1
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.preprocessing import StandardScaler
+
+# Load the dataset directly from the URL
+url = 'Customer.csv'  # Replace with the actual URL
+df = pd.read_csv(url)
+
+# Display the first few rows of the dataset
+print(df.head())
+
+# Check for missing values
+print(df.isnull().sum())
+
+# Drop rows with missing values (if any)
+df.dropna(inplace=True)
+
+# Convert DOB to age - specify the date format
+df['DOB'] = pd.to_datetime(df['DOB'], format='%d/%m/%y %H:%M', dayfirst=True)  # Adjust the format for day first
+df['Age'] = (pd.Timestamp.now() - df['DOB']).dt.days // 365  # Calculate age in years
+
+# Select relevant features for clustering
+features = df[['Age', 'Gender']]
+
+# One-hot encode the categorical 'Gender' feature
+features_encoded = pd.get_dummies(features, columns=['Gender'], drop_first=True)
+
+# Check the resulting DataFrame after encoding
+print("Encoded Features:\n", features_encoded.head())
+print("Columns after Encoding:", features_encoded.columns.tolist())
+
+# Standardize the features
+scaler = StandardScaler()
+features_scaled = scaler.fit_transform(features_encoded)
+
+# Perform Hierarchical Agglomerative Clustering
+model = AgglomerativeClustering(n_clusters=4)  # Adjust the number of clusters as needed
+labels = model.fit_predict(features_scaled)
+
+# Add cluster labels to the original dataframe
+df['Cluster'] = labels
+
+# Display the first few rows with cluster labels
+print(df.head())
+
+# Check the unique labels
+print("Unique Cluster Labels:", df['Cluster'].unique())
+
+# Optional: Plotting the clusters (use only Age and one gender column for visualization)
+gender_column = features_encoded.columns[1]  # Assuming the first column is 'Age'
+plt.figure(figsize=(10, 6))
+plt.scatter(df['Age'], features_encoded[gender_column], c=labels, cmap='viridis', marker='o', edgecolor='k')
+plt.title('Hierarchical Agglomerative Clustering of Customers')
+plt.xlabel('Age')
+plt.ylabel(gender_column)  # Update the y-label to match the gender column
+plt.colorbar(label='Cluster')
+plt.grid(True)  # Add grid for better readability
+plt.show()
+
+# Optional: Dendrogram for visualizing hierarchical clustering
+plt.figure(figsize=(10, 6))
+from scipy.cluster.hierarchy import dendrogram, linkage
+linked = linkage(features_scaled, 'ward')
+dendrogram(linked,
+           orientation='top',
+           distance_sort='descending',
+           show_leaf_counts=True)
+plt.title('Dendrogram for Hierarchical Clustering')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.grid(True)  # Add grid for better readability
+plt.show()
